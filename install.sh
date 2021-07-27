@@ -342,7 +342,7 @@ dns_check(){
     read FQDN
 
     output "Resolving DNS..."
-    SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+    SERVER_IP=$(curl -s http://checkip.amazonaws.com)
     DOMAIN_RECORD=$(dig +short ${FQDN})
     if [ "${SERVER_IP}" != "${DOMAIN_RECORD}" ]; then
         output ""
@@ -1669,7 +1669,7 @@ install_phpmyadmin(){
     rm -rf phpMyAdmin-${PHPMYADMIN}-all-languages.zip
     cd /var/www/pterodactyl/public/phpmyadmin
 
-    SERVER_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+    SERVER_IP=$(curl -s http://checkip.amazonaws.com)
     BOWFISH=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 34 | head -n 1`
     bash -c 'cat > /var/www/pterodactyl/public/phpmyadmin/config.inc.php' <<EOF
 <?php
